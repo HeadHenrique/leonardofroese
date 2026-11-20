@@ -16,7 +16,6 @@ import {
   Handshake,
   Landmark,
   LineChart,
-  Play,
   Quote,
   Repeat,
   Rocket,
@@ -554,11 +553,11 @@ function ChapterItem({ chapter, index }: { chapter: (typeof chapters)[0]; index:
 
 /* ---------------- Sessão 7: Depoimentos ---------------- */
 
-const cases = [
-  { name: "Indústria: 120 colaboradores", result: "Margem líquida reestruturada" },
-  { name: "Varejo: 8 lojas", result: "Operação independente do dono" },
-  { name: "Serviços B2B", result: "Previsibilidade comercial" },
-];
+const testimonialVideos = [
+  { title: "Depoimento 01", embedUrl: "https://www.youtube-nocookie.com/embed/nGj5NN4XvyM?rel=0&playsinline=1" },
+  { title: "Depoimento 02", embedUrl: "https://www.youtube-nocookie.com/embed/odkL-rQqsC8?rel=0&playsinline=1" },
+  { title: "Depoimento 03", embedUrl: "https://www.youtube-nocookie.com/embed/s5Xw05eyuOM?rel=0&playsinline=1" },
+] as const;
 
 export function Testimonials() {
   return (
@@ -571,29 +570,30 @@ export function Testimonials() {
       </Reveal>
 
       <div className="mt-16 grid gap-5 lg:grid-cols-3">
-        {cases.map((c, i) => (
-          <Reveal key={c.name} delay={i * 0.1}>
-            <div className="card-premium group h-full overflow-hidden">
-              {/* PLACEHOLDER: vídeo de depoimento */}
-              <div
-                data-video-placeholder={`depoimento-${i + 1}`}
-                className="relative aspect-video w-full border-b border-border bg-gradient-to-br from-surface-2 to-background"
-              >
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="flex size-14 items-center justify-center rounded-full border border-border bg-background/60 backdrop-blur transition-all duration-500 group-hover:border-primary/50 group-hover:shadow-[0_0_40px_-10px_oklch(0.83_0.121_82.5/0.7)]">
-                    <Play className="size-5 text-primary" strokeWidth={1.6} />
-                  </span>
-                </div>
-                <span className="absolute bottom-3 left-4 text-[10px] uppercase tracking-[0.22em] text-subtle">
-                  Espaço para vídeo
+        {testimonialVideos.map((video, i) => (
+          <Reveal key={video.embedUrl} delay={i * 0.1}>
+            <article className="card-premium group h-full overflow-hidden p-3 transition-all duration-500 hover:border-primary/40 hover:shadow-[0_0_60px_-24px_oklch(0.83_0.121_82.5/0.6)]">
+              <div className="flex min-h-[34px] items-center justify-between gap-3 px-1 pb-3">
+                <span className="flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-primary">
+                  <Quote className="size-3.5" strokeWidth={1.8} />
+                  {video.title}
                 </span>
+                <span
+                  aria-hidden="true"
+                  className="size-[7px] flex-none rounded-full bg-primary shadow-[0_0_14px_oklch(0.83_0.121_82.5/0.6)]"
+                />
               </div>
-              <div className="p-8">
-                <Quote className="size-4 text-primary" strokeWidth={1.8} />
-                <p className="mt-5 text-lg font-medium tracking-tight">{c.result}</p>
-                <p className="mt-2 text-sm font-light text-subtle">{c.name}</p>
+              <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-black shadow-[0_10px_30px_rgba(0,0,0,0.28)]">
+                <iframe
+                  src={video.embedUrl}
+                  title={video.title}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="absolute inset-0 block size-full border-0"
+                />
               </div>
-            </div>
+            </article>
           </Reveal>
         ))}
       </div>
