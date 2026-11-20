@@ -14,6 +14,7 @@ import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as RpmRouteImport } from './routes/rpm'
 import { Route as ApiRpmProxyRouteImport } from './routes/api/rpm-proxy'
 import { Route as LiveSemanalRouteImport } from './routes/live/semanal'
+import { Route as Lucro2xIndexRouteImport } from './routes/lucro2x/index'
 import { Route as Lucro2xObrigadoRouteImport } from './routes/lucro2x/obrigado'
 import { Route as RaioXIndexRouteImport } from './routes/raio-x/index'
 import { Route as RaioXDadosRouteImport } from './routes/raio-x/dados'
@@ -50,6 +51,11 @@ const ApiRpmProxyRoute = ApiRpmProxyRouteImport.update({
 const LiveSemanalRoute = LiveSemanalRouteImport.update({
   id: '/live/semanal',
   path: '/live/semanal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Lucro2xIndexRoute = Lucro2xIndexRouteImport.update({
+  id: '/lucro2x/',
+  path: '/lucro2x/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Lucro2xObrigadoRoute = Lucro2xObrigadoRouteImport.update({
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/raiox/dados': typeof RaioxDadosRoute
   '/raiox/perguntas': typeof RaioxPerguntasRoute
   '/raiox/resultado': typeof RaioxResultadoRoute
+  '/lucro2x/': typeof Lucro2xIndexRoute
   '/raio-x/': typeof RaioXIndexRoute
   '/raiox/': typeof RaioxIndexRoute
   '/treinamentos/': typeof TreinamentosIndexRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByTo {
   '/raiox/dados': typeof RaioxDadosRoute
   '/raiox/perguntas': typeof RaioxPerguntasRoute
   '/raiox/resultado': typeof RaioxResultadoRoute
+  '/lucro2x': typeof Lucro2xIndexRoute
   '/raio-x': typeof RaioXIndexRoute
   '/raiox': typeof RaioxIndexRoute
   '/treinamentos': typeof TreinamentosIndexRoute
@@ -166,6 +174,7 @@ export interface FileRoutesById {
   '/raiox/dados': typeof RaioxDadosRoute
   '/raiox/perguntas': typeof RaioxPerguntasRoute
   '/raiox/resultado': typeof RaioxResultadoRoute
+  '/lucro2x/': typeof Lucro2xIndexRoute
   '/raio-x/': typeof RaioXIndexRoute
   '/raiox/': typeof RaioxIndexRoute
   '/treinamentos/': typeof TreinamentosIndexRoute
@@ -187,6 +196,7 @@ export interface FileRouteTypes {
     | '/raiox/dados'
     | '/raiox/perguntas'
     | '/raiox/resultado'
+    | '/lucro2x/'
     | '/raio-x/'
     | '/raiox/'
     | '/treinamentos/'
@@ -206,6 +216,7 @@ export interface FileRouteTypes {
     | '/raiox/dados'
     | '/raiox/perguntas'
     | '/raiox/resultado'
+    | '/lucro2x'
     | '/raio-x'
     | '/raiox'
     | '/treinamentos'
@@ -225,6 +236,7 @@ export interface FileRouteTypes {
     | '/raiox/dados'
     | '/raiox/perguntas'
     | '/raiox/resultado'
+    | '/lucro2x/'
     | '/raio-x/'
     | '/raiox/'
     | '/treinamentos/'
@@ -245,6 +257,7 @@ export interface RootRouteChildren {
   RaioxDadosRoute: typeof RaioxDadosRoute
   RaioxPerguntasRoute: typeof RaioxPerguntasRoute
   RaioxResultadoRoute: typeof RaioxResultadoRoute
+  Lucro2xIndexRoute: typeof Lucro2xIndexRoute
   RaioXIndexRoute: typeof RaioXIndexRoute
   RaioxIndexRoute: typeof RaioxIndexRoute
   TreinamentosIndexRoute: typeof TreinamentosIndexRoute
@@ -287,6 +300,13 @@ declare module '@tanstack/react-router' {
       path: '/live/semanal'
       fullPath: '/live/semanal'
       preLoaderRoute: typeof LiveSemanalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lucro2x/': {
+      id: '/lucro2x/'
+      path: '/lucro2x'
+      fullPath: '/lucro2x/'
+      preLoaderRoute: typeof Lucro2xIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lucro2x/obrigado': {
@@ -389,6 +409,7 @@ const rootRouteChildren: RootRouteChildren = {
   RaioxDadosRoute: RaioxDadosRoute,
   RaioxPerguntasRoute: RaioxPerguntasRoute,
   RaioxResultadoRoute: RaioxResultadoRoute,
+  Lucro2xIndexRoute: Lucro2xIndexRoute,
   RaioXIndexRoute: RaioXIndexRoute,
   RaioxIndexRoute: RaioxIndexRoute,
   TreinamentosIndexRoute: TreinamentosIndexRoute,
